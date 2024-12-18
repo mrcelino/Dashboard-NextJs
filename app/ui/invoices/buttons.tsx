@@ -26,10 +26,14 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
-  const deleteInvoiceWithId = deleteInvoice.bind(null, id);
- 
+  const handleDelete = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const result = await deleteInvoice(id); 
+    console.log(result.message); 
+  };
+
   return (
-    <form action={deleteInvoiceWithId}>
+    <form onSubmit={handleDelete}>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-4" />
@@ -37,3 +41,4 @@ export function DeleteInvoice({ id }: { id: string }) {
     </form>
   );
 }
+
